@@ -42,7 +42,7 @@ function processResolutions() {
   
   function ensureFolderStructure(year, quarter, month) {
     // Start from the provided directory instead of the root folder
-    let rootDirectoryId = "1YRFtmT5kuxctPfVVu31zfHlkp6JkilpN"; // public doesn't matter
+    let rootDirectoryId = "---"; 
     let root = DriveApp.getFolderById(rootDirectoryId);
   
     // Check if year folder exists, if not create it
