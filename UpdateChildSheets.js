@@ -25,6 +25,34 @@ function syncSpecificRangeFromParentToChild(sheetName, rangeToCopy, childSpreads
 
     // Write the new data into the child sheet
     childSheet.getRange(rangeToCopy).setValues(dataToCopy);
+    //Indicate last update
+    lastUpdated(childSpreadsheetId, sheetName, 'I6')
+}
+
+/**
+ * Updates a specified range in a given spreadsheet and sheet with the text "Last Updated:" and the current date and time, 
+ * indicating when the script was last executed.
+ *
+ * @param {string} spreadsheetId The ID of the spreadsheet where the last updated information will be written.
+ * @param {string} sheetName The name of the sheet where the information will be written.
+ * @param {string} startingCell The A1 notation of the starting cell where "Last Updated:" will be written.
+ */
+function lastUpdated(spreadsheetId, sheetName, startingCell) {
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  const sheet = spreadsheet.getSheetByName(sheetName);
+  
+  // Format the current date and time
+  const now = new Date();
+  const formattedDateTime = Utilities.formatDate(now, Session.getScriptTimeZone(), "MM/dd/yyyy HH:mm:ss");
+  
+  // Prepare the data to write
+  const data = [
+    ["Last Updated:", formattedDateTime]
+  ];
+  
+  // Update the specified range with the "Last Updated:" label and the current date and time
+  // This assumes the startingCell is the cell for "Last Updated:" text and the date is written in the next cell to the right.
+  sheet.getRange(startingCell + ':' + startingCell).offset(0, 0, 1, 2).setValues(data);
 }
 
 
